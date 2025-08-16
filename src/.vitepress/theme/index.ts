@@ -1,16 +1,17 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
 import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
+
+import Mist from "vitepress-theme-mist";
+
+import MistLayoutProvider from "./components/MistLayoutProvider.vue";
+
 import './style.css'
 
+import "vitepress-theme-mist/theme-chalk/index.css"
+
 export default {
-  extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    })
-  },
+  extends: Mist,
+  Layout: MistLayoutProvider,
   enhanceApp({ app, router, siteData }) {
     // ...
   }

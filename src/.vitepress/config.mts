@@ -34,6 +34,7 @@ export default defineConfig({
   extends: myThemeConfig,
   title: "Mist",
   description: "mist docs",
+  base: '/vitepress-theme-mist-docs/',
   // rewrites: createRewrites({ srcDir: 'src' }), // 这里需要填项目根目录(.vtiepress所在目录，若是.vitepress和package.json在同级，则可为空)
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

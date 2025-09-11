@@ -8,29 +8,31 @@ hero:
   tagline: My great project tagline
   actions:
     - theme: brand
-      text: 开发
-      link: /sdoc/01-开发/
+      text: 目录
+      link: /sdoc/
     - theme: alt
-      text: 组件
-      link: /sdoc/02-组件/
+      text: 导航
+      link: /@pages/Navigation
   image:
     src: /images/blog.svg
     alt: VitePress
 
 features:
+  - icon: 📖
+    title: site-vitepress
+    details: 苏木
+    link: https://docs-site.github.io/site-vitepress/
+  - icon: 📚
+    title: sumumm.github.io
+    details: 苏木的学习笔记
+    link: https://sumumm.github.io/
+  - icon: 🎐
+    title: vscode docs
+    details: vscode开发文档
+    link: https://docs-site.github.io/site-docsify/#/
   - icon: 📋
     title: VitePress
     details: 由 Vite 和 Vue 驱动的静态站点生成器
     link: https://vitejs.cn/vitepress/
-
-  - icon: 📋
-    title: 苏木
-    details: 苏木的学习笔记
-    link: https://sumumm.github.io/
-
-  - icon: 📝
-    title: site-hexo
-    details: 苏木的hexo site
-    link: https://docs-site.github.io/site-hexo/
 ---
 

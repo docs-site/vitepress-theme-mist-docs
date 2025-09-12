@@ -9,10 +9,13 @@ hero:
   actions:
     - theme: brand
       text: 目录
-      link: /sdoc/
+      link: /sdoc/126b07e425cf34050557ccbe
     - theme: alt
       text: 导航
-      link: /@pages/Navigation
+      link: /Navigation
+    - theme: alt
+      text: 归档
+      link: /archives
   image:
     src: /images/blog.svg
     alt: VitePress

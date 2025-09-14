@@ -3,7 +3,8 @@
     "docs:dev": "vitepress dev src",
     "docs:build": "vitepress build src",
     "docs:preview": "vitepress preview src",
-    "docs:map": "tdoc m:m -d ./src/sdoc"
+    "docs:map": "tdoc m:m -d ./src/sdoc",
+    "copy:sdoc": "node .scripts/copy-sdoc.js"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

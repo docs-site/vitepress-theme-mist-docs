@@ -35,6 +35,11 @@ export default defineConfig({
   title: "Mist",
   description: "mist docs",
   base: "/vitepress-theme-mist-docs/",
+  markdown: {
+    image: {
+      lazyLoading: false, // 主题默认开启了图片懒加载，浏览器会有一个警告，这里先默认关闭，有需要再打开
+    }
+  },
   // rewrites: createRewrites({ srcDir: "src" }), // 这里需要填项目根目录(.vtiepress所在目录，若是.vitepress和package.json在同级，则可为空)
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

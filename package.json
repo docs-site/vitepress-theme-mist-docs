@@ -4,12 +4,14 @@
     "docs:build": "vitepress build src",
     "docs:preview": "vitepress preview src",
     "docs:map": "tdoc m:m -d ./src/sdoc",
-    "copy:sdoc": "node .scripts/copy-sdoc.js"
+    "copy:sdoc": "node .scripts/copy-sdoc.js",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
     "sass-embedded": "^1.92.1",
     "vitepress": "^1.6.4",
-    "vitepress-theme-mist": "^1.2.3"
+    "vitepress-theme-mist": "^1.2.3",
+    "husky": "^8.0.0"
   }
 }

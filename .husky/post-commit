@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# 只备份md文档资源目录除图片外的其他文档
+npm run docs:mist:docs
+
 # echo "🔍 Checking if sdoc directory files were modified in this commit..."
 
 # # 检查本次提交中是否修改了 src/sdoc 目录下的文件

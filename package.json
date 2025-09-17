@@ -4,6 +4,7 @@
     "docs:build": "vitepress build src",
     "docs:preview": "vitepress preview src",
     "docs:map": "tdoc m:m -d ./src/sdoc",
+    "docs:img": "tdoc img -d ./src/sdoc -a && git add .",
     "copy:sdoc": "node .scripts/copy-sdoc.js",
     "prepare": "husky install"
   },

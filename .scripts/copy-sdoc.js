@@ -20,7 +20,7 @@ function copySdocDirectory() {
     console.log('🏗️  工程目录名:', projectName);
 
     // 构建目标目录名
-    const targetDirName = `${DOCS_ROOT}/${projectName}-sdoc`;
+    const targetDirName = `${DOCS_ROOT}/${projectName}`;
     console.log('🎯 目标目录名:', targetDirName);
 
     // 构建目标目录的完整路径（在当前目录的父级目录中）

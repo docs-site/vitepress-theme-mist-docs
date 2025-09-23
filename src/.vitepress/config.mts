@@ -36,7 +36,7 @@ export default defineConfig({
   description: "mist docs",
   base: "/vitepress-theme-mist-docs/",
   markdown: {
-    math: true, // 开启数学公式支持，需要安装 markdown-it-mathjax3
+    math: false, // 开启数学公式支持，需要安装 markdown-it-mathjax3
     image: {
       lazyLoading: false, // 主题默认开启了图片懒加载，浏览器会有一个警告，这里先默认关闭，有需要再打开
     }

@@ -1,0 +1,61 @@
+# .cnb.yml
+$:
+  vscode:
+    - docker:
+        # 指定开发环境镜像，可以是任意可访问的镜像。
+        # 如果 image 指定的镜像中已安装 code-server 代码服务，将使用单容器模式启动开发环境
+        # 如果 image 指定的镜像中未安装 code-server 代码服务，将使用双容器模式启动开发环境
+        # 如下镜像为 CNB 默认开发环境镜像，已安装代码服务，将使用单容器模式启动开发环境
+        # 可按需替换为其他镜像
+        image: cnbcool/default-dev-env:latest
+      services:
+        - vscode
+        - docker
+      # 开发环境启动后会执行的任务
+      stages:
+        - name: 查看当前路径下文件
+          script:
+            - echo "当前路径为 $(pwd)"
+            - ls -al
+
+master: # 触发分支
+  push: # 触发事件
+    - docker:
+        image: node:22 # 流水线执行环境，可以指定任意docker镜像
+      stages:
+        - name: 🖨️ 打印环境
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          script: |
+            node -v && npm -v
+
+        - name: 📦️ 安装依赖
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          script: npm config set registry https://registry.npmmirror.com && npm i
+
+        - name: 🛠️ 构建当前项目
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          script: npm run docs:build
+
+        - name: 🚚 部署到Github Pages
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          imports: https://cnb.cool/sumu.k/secret-key/-/blob/main/pages.yml
+          script: |
+            # 配置git用户信息(不配置的话推送上去会出现 cnb_name and cnb_name commit这种提示)
+            git config --global user.name "cnb"
+            git config --global user.email "2038035593@qq.com"
+
+            # 进入构建输出目录
+            cd ./src/.vitepress/dist
+            
+            # 初始化git并推送到github pages分支
+            git init
+            git add .
+            git commit -m "deploy to Github Pages from cnb"
+            git branch -M master
+            git remote add origin "https://${GITHUB_CNB_SYNC}@github.com/docs-site/vitepress-theme-mist-docs.git"
+            git push -fu origin master:gh-pages
+          

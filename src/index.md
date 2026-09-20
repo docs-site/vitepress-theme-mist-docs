@@ -1,6 +1,16 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+# 首页打字机（会与主题配置做浅合并，覆盖对应字段）
+homeTypewriter:
+  texts:
+    - 莫道桑榆晚，为霞尚满天
+    - 学而不思则罔，思而不学则殆
+    - 温故而知新
+  inputTime: 120 # 打字间隔时间(毫秒)
+  outputTime: 60 # 删字间隔时间(毫秒)
+  nextTime: 1500 # 打完/删完一条文案后的停留时间(毫秒)
+  shuffle: false # 是否随机切换下一条文案
 
 hero:
   name: ""

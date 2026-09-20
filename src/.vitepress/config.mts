@@ -8,6 +8,10 @@ const myThemeConfig = defineMistConfig({
   clickEffect: {
     enabled: true,
   },
+  // 首页打字机（仅开启功能，具体文案与节奏在首页 frontmatter 中配置）
+  homeTypewriter: {
+    enabled: true,
+  },
   vitePlugins: {
     navSidebarOption: {
       path: "sdoc",

@@ -1,0 +1,44 @@
+# 部署到 GitHub Pages 流水线：构建 VitePress 站点并将产物推送到 GitHub 的 gh-pages 分支
+#
+# 本文件随模板分发到用户生成的仓库，所有仓库 push 到 main 且提交信息包含 [deploy] 时触发。
+main: # 触发分支
+  push: # 触发事件
+    - name: 部署到 GitHub Pages
+      docker:
+        image: node:22 # 流水线执行环境，可以指定任意docker镜像
+      stages:
+        - name: 🖨️ 打印环境
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          script: |
+            node -v && npm -v
+
+        - name: 📦️ 安装依赖
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          script: npm config set registry https://registry.npmmirror.com && npm i
+
+        - name: 🛠️ 构建当前项目
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          script: npm run docs:build
+
+        - name: 🚚 部署到Github Pages
+          if: |
+            case "$CNB_COMMIT_MESSAGE" in *"[deploy]"* ) true ;; * ) false ;; esac
+          imports: https://cnb.cool/sumu.m/secret-key/-/blob/main/pages.yaml
+          script: |
+            # 配置git用户信息(不配置的话推送上去会出现 cnb_name and cnb_name commit这种提示)
+            git config --global user.name "cnb"
+            git config --global user.email "2038035593@qq.com"
+
+            # 进入构建输出目录
+            cd ./src/.vitepress/dist
+
+            # 初始化git并推送到github pages分支
+            git init
+            git add .
+            git commit -m "deploy to Github Pages from cnb"
+            git branch -M master
+            git remote add origin "https://${GITHUB_CNB_SYNC}@github.com/docs-site/vitepress-theme-mist-docs.git"
+            git push -fu origin master:gh-pages

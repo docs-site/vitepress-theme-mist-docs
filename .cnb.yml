@@ -1,4 +1,15 @@
 # .cnb.yml
+#
+# 流水线已按用途拆分到 .cnb/workflows/ 目录：
+#   - sync-repo.yml        代码同步（仅模板仓库自身执行）
+#   - deploy-gh-pages.yml  部署到 GitHub Pages（随模板分发，所有仓库触发）
+#
+# 注意：CNB 不会自动加载 .cnb/workflows/ 下的文件（该目录名是 GitHub Actions 的约定），
+# 必须在此处显式 include，路径相对于仓库根目录。
+include:
+  - .cnb/workflows/sync-repo.yml
+  - .cnb/workflows/deploy-gh-pages.yml
+
 $:
   vscode:
     - docker:
@@ -17,29 +28,3 @@ $:
           script:
             - echo "当前路径为 $(pwd)"
             - ls -al
-
-main:
-  push:
-    - stages:
-        # 本文件会随模板仓库分发到用户生成的仓库，同步任务仅允许模板仓库本身执行：
-        # 通过内置变量 CNB_REPO_SLUG_LOWERCASE（格式：群组/仓库）精确匹配，派生仓库自动跳过
-        - name: sync to sumumm'github
-          if: test "$CNB_REPO_SLUG_LOWERCASE" = "sumu.m/vitepress-theme-mist-docs"
-          image: tencentcom/git-sync
-          imports: https://cnb.cool/sumu.k/secret-key/-/blob/main/access-token.yml
-          settings:
-            target_url: https://github.com/docs-site/vitepress-theme-mist-docs.git
-            auth_type: https
-            username: sumumm
-            password: ${GITHUB_CNB_SYNC}
-            force: true
-        - name: sync to sumumm'gitee
-          if: test "$CNB_REPO_SLUG_LOWERCASE" = "sumu.m/vitepress-theme-mist-docs"
-          image: tencentcom/git-sync
-          imports: https://cnb.cool/sumu.k/secret-key/-/blob/main/access-token.yml
-          settings:
-            target_url: https://gitee.com/docs-site/vitepress-theme-mist-docs.git
-            auth_type: https
-            username: sumumm
-            password: ${GITEE_CNB_SYNC}
-            force: true

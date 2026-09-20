@@ -21,7 +21,10 @@ $:
 main:
   push:
     - stages:
+        # 本文件会随模板仓库分发到用户生成的仓库，同步任务仅允许模板仓库本身执行：
+        # 通过内置变量 CNB_REPO_SLUG_LOWERCASE（格式：群组/仓库）精确匹配，派生仓库自动跳过
         - name: sync to sumumm'github
+          if: test "$CNB_REPO_SLUG_LOWERCASE" = "sumu.m/vitepress-theme-mist-docs"
           image: tencentcom/git-sync
           imports: https://cnb.cool/sumu.k/secret-key/-/blob/main/access-token.yml
           settings:
@@ -31,6 +34,7 @@ main:
             password: ${GITHUB_CNB_SYNC}
             force: true
         - name: sync to sumumm'gitee
+          if: test "$CNB_REPO_SLUG_LOWERCASE" = "sumu.m/vitepress-theme-mist-docs"
           image: tencentcom/git-sync
           imports: https://cnb.cool/sumu.k/secret-key/-/blob/main/access-token.yml
           settings:
